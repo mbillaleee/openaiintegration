@@ -33,70 +33,22 @@
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-folder-list"></em>
                                         </span>
-                                        <span class="nk-menu-text">Documents</span>
+                                        <span class="nk-menu-text">Accounts</span>
                                     </a>
                                     <ul class="nk-menu-sub">
                                         <li class="nk-menu-item">
-                                            <a href="document-saved.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">Saved</span>
+                                            <a href="{{ route('admin.profile') }}" class="nk-menu-link">
+                                                <span class="nk-menu-text">Profile</span>
                                             </a>
                                         </li>
                                         <li class="nk-menu-item">
                                             <a href="document-drafts.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">Drafts</span>
+                                                <span class="nk-menu-text">Change Passsword</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nk-menu-item has-sub">
-                                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                                        <span class="nk-menu-icon">
-                                            <em class="icon ni ni-edit"></em>
-                                        </span>
-                                        <span class="nk-menu-text">Editor</span>
-                                    </a>
-                                    <ul class="nk-menu-sub">
-                                        <li class="nk-menu-item">
-                                            <a href="document-editor.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">New</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="document-editor-generate.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">Generate</span>
-                                            </a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="document-editor-edit.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">Edit</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="templates.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon">
-                                            <em class="icon ni ni-layers"></em>
-                                        </span>
-                                        <span class="nk-menu-text">Templates</span>
-                                    </a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="history.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon">
-                                            <em class="icon ni ni-clock"></em>
-                                        </span>
-                                        <span class="nk-menu-text">History</span>
-                                    </a>
-                                </li>
-                                <li class="nk-menu-item">
-                                    <a href="pricing-plans.html" class="nk-menu-link">
-                                        <span class="nk-menu-icon">
-                                            <em class="icon ni ni-sign-usdc"></em>
-                                        </span>
-                                        <span class="nk-menu-text">Pricing Plans</span>
-                                    </a>
-                                </li>
+                                
                                 <li class="nk-menu-item">
                                     <a href="profile.html" class="nk-menu-link">
                                         <span class="nk-menu-icon">
@@ -122,7 +74,7 @@
                 <div class="nk-sidebar-element nk-sidebar-footer">
                     <div class="nk-sidebar-footer-extended pt-3">
                         <div class="border border-light rounded-3">
-                            <div class="px-3 py-2 bg-white border-bottom border-light rounded-top-3">
+                            <!-- <div class="px-3 py-2 bg-white border-bottom border-light rounded-top-3">
                                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                                     <h6 class="lead-text">Free Plan</h6>
                                     <a class="link link-primary" href="pricing-plans.html">
@@ -134,15 +86,20 @@
                                     <div class="progress-bar" data-progress="25%"></div>
                                 </div>
                                 <h6 class="lead-text mt-2">1,360 <span class="text-light">words left</span></h6>
-                            </div>
+                            </div> -->
+
+                            @php 
+                            $id = Auth::id();
+                            $profileData = App\Models\User::find($id);
+                            @endphp
                             <a class="d-flex px-3 py-2 bg-primary bg-opacity-10 rounded-bottom-3" href="profile.html">
                                 <div class="media-group">
                                     <div class="media media-sm media-middle media-circle text-bg-primary">
-                                        <img src="{{ asset('backend') }}/images/avatar/a.png" />
+                                        <img src="{{ (!empty($profileData->photo)) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" />
                                     </div>
                                     <div class="media-text">
-                                        <h6 class="fs-6 mb-0">Shawn Mahbub</h6>
-                                        <span class="text-light fs-7">shawn@websbd.com</span>
+                                        <h6 class="fs-6 mb-0">{{ $profileData->name }}</h6>
+                                        <span class="text-light fs-7">{{ $profileData->email }}</span>
                                     </div>
                                     <em class="icon ni ni-chevron-right ms-auto ps-1"></em>
                                 </div>

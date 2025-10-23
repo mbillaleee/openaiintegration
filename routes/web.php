@@ -21,14 +21,23 @@ Route::prefix('user')->middleware(['auth', IsUser::class])->group(function () {
     })->name('dashboard');
 });
 
-// User routes
+
+
+// Admin routes
 Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.index');
     })->name('admin.dashboard');
 
 
-    Route::get('/admin/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
+    Route::get('/admin/profile', [AdminController::class, 'adminProfile'])->name('admin.profile');
+    Route::post('/admin/profile/update', [AdminController::class, 'adminProfileUpdate'])->name('admin.profile.update');
+
+
+
+
+
+    Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
 });
 
 

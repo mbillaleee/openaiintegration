@@ -8,6 +8,8 @@
     <link rel="shortcut icon" href="{{ asset('backend/images/favicon.png') }}">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="{{ asset('backend/assets/css/style.css?v1.0.0') }}">
+
+    @stack('css')
 </head>
 
 <body class="nk-body ">
@@ -27,6 +29,9 @@
     </div>
     <script src="{{ asset('backend/assets/js/bundle.js?v1.0.0') }}"></script>
     <script src="{{ asset('backend/assets/js/scripts.js?v1.0.0') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    @stack('js')
 </body>
 
 </html>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,5 +15,46 @@ class AdminController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    public function adminProfile()
+    {
+        $id = Auth::id();
+        $profileData = User::find($id);
+
+        return view('admin.admin.profile', compact('profileData'));
+    }
+
+    public function adminProfileUpdate(Request $request)
+    {
+        $id = Auth::id();
+        $profileData = User::find($id);
+        $profileData->name = $request->name;
+        $profileData->email = $request->email;
+        $profileData->phone = $request->phone;
+        $profileData->address = $request->address;
+
+        $old_photo_path = $profileData->photo;
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('upload/admin_images'), $fileName);
+            $profileData->photo = $fileName;
+
+            if ($old_photo_path && $old_photo_path !== $fileName) {
+                $this->deleteOldImage($old_photo_path);
+            }
+        }
+        $profileData->save();
+
+        return redirect()->back();
+    }
+
+    private function deleteOldImage(string $old_photo_path) : void
+    {
+        $fullPath = public_path('upload/admin_images/'. $old_photo_path);
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
     }
 }
