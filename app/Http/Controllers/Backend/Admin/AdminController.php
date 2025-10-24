@@ -47,7 +47,11 @@ class AdminController extends Controller
         }
         $profileData->save();
 
-        return redirect()->back();
+        $notification = array(
+            'message' => 'Admin Profile updated successfully',
+            'alert-type' =>'success'
+        );
+        return redirect()->back()->with($notification);
     }
 
     private function deleteOldImage(string $old_photo_path) : void
