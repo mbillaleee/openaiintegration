@@ -42,19 +42,40 @@
                                             </a>
                                         </li>
                                         <li class="nk-menu-item">
-                                            <a href="document-drafts.html" class="nk-menu-link">
+                                            <a href="{{ route('admin.change.password') }}" class="nk-menu-link">
                                                 <span class="nk-menu-text">Change Passsword</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="nk-menu-item has-sub">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon">
+                                            <em class="icon ni ni-folder-list"></em>
+                                        </span>
+                                        <span class="nk-menu-text">Plans</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('plans.index') }}" class="nk-menu-link">
+                                                <span class="nk-menu-text">All plans</span>
+                                            </a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{ route('plans.create') }}" class="nk-menu-link">
+                                                <span class="nk-menu-text">Add plans</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 
                                 <li class="nk-menu-item">
-                                    <a href="profile.html" class="nk-menu-link">
+                                    <a href="{{ route('templates.index') }}" class="nk-menu-link">
                                         <span class="nk-menu-icon">
                                             <em class="icon ni ni-user"></em>
                                         </span>
-                                        <span class="nk-menu-text">Profile</span>
+                                        <span class="nk-menu-text">Template</span>
                                     </a>
                                 </li>
                                 <li class="nk-menu-item">
