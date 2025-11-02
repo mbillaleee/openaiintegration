@@ -86,8 +86,6 @@
                                         <span class="nk-menu-text">Logout</span>
                                     </a>
                                 </li>
-                               
-                               
                             </ul>
                         </div><!-- .nk-sidebar-menu -->
                     </div><!-- .nk-sidebar-content -->

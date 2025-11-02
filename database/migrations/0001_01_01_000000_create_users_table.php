@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('status')->default('1');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('plan_id')->references('id')->on('plans')->nullOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

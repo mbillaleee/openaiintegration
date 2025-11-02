@@ -45,6 +45,7 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     
     Route::resource('plans', PlanController::class);
     Route::resource('templates', TemplateController::class);
+    Route::post('/content/generate/{id}', [TemplateController::class, 'adminContentGenerate'])->name('content.generate');
 
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
