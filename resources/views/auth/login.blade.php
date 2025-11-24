@@ -58,7 +58,7 @@
                                                         <em class="icon ni ni-eye inactive"></em>
                                                         <em class="icon ni ni-eye-off active"></em>
                                                     </a>
-                                                    <input class="form-control  @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Enter password" />
+                                                    <input class="form-control  @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Enter password" value=""/>
                                                     @error('password')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror

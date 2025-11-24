@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 
@@ -46,6 +47,10 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::resource('plans', PlanController::class);
     Route::resource('templates', TemplateController::class);
     Route::post('/content/generate/{id}', [TemplateController::class, 'adminContentGenerate'])->name('content.generate');
+    Route::get('/all/document', [DocumentController::class, 'adminDocument'])->name('admin.document');
+    Route::get('/edit/document/{id}', [DocumentController::class, 'editAdminDocument'])->name('edit.admin.document');
+    Route::post('/update/document/{id}', [DocumentController::class, 'updateAdminDocument'])->name('admin.update.document');
+    Route::delete('/delete/document/{id}', [DocumentController::class, 'deleteAdminDocument'])->name('delete.admin.document');
 
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');

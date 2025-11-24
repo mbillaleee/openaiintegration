@@ -164,7 +164,7 @@ class TemplateController extends Controller
 
         // Validate fixed fields
         $validateData = $request->validate([
-            'language' => 'required|in:English (USA),Bangladesh,Hindi (India),French (Franch),Turkish (Turkey)',
+            'language' => 'required|in:English (USA),Bangla (Bangladesh),Hindi (India),French (Franch),Turkish (Turkey)',
             'ai_model' => 'required|in:gpt-4,gpt-3.5-turbo',
             'result_length' => 'required|integer|min:50|max:1000',
         ]);
