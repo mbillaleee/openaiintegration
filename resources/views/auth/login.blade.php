@@ -43,7 +43,7 @@
                                             <div class="form-group">
                                                 <label class="form-label" for="email">Email Address</label>
                                                 <div class="form-control-wrap">
-                                                    <input class="form-control  @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="Enter email address" />
+                                                    <input class="form-control  @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="Enter email address" value="admin@gmail.com"/>
                                                     @error('email')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror
@@ -58,7 +58,7 @@
                                                         <em class="icon ni ni-eye inactive"></em>
                                                         <em class="icon ni ni-eye-off active"></em>
                                                     </a>
-                                                    <input class="form-control  @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Enter password" value=""/>
+                                                    <input class="form-control  @error('password') is-invalid @enderror" type="password" name="password" id="password" placeholder="Enter password" value="zzzzzzzz"/>
                                                     @error('password')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @enderror

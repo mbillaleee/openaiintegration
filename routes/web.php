@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
+use App\Http\Controllers\Backend\Client\UserController;
 
 
 Route::get('/', function () {
@@ -20,9 +21,16 @@ Route::get('/', function () {
 
 // User routes
 Route::prefix('user')->middleware(['auth', IsUser::class])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+
+    Route::get('/dashboard', [UserController::class, 'userDashboard'])->name('dashboard');
+    Route::get('/logout', [UserController::class, 'userLogout'])->name('user.logout');
+    Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
+    Route::post('/user/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
+
+
 });
 
 

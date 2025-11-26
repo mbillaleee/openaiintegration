@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function adminLogout(Request $request)
+    public function adminLogout(Request $request) 
     {
         Auth::guard('web')->logout();
         $request->session()->invalidate();
