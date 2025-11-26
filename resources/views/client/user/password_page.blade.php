@@ -23,7 +23,7 @@
         <div class="card shadown-none">
             <div class="card-body">
      
-     <form action="{{ route('admin.password.update') }}" method="post" enctype="multipart/form-data">
+     <form action="{{ route('user.password.update') }}" method="post" enctype="multipart/form-data">
         @csrf   
 
         <div class="row g-3 gx-gs">

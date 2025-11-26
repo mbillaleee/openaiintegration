@@ -26,72 +26,78 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <form action="{{ route('user.profile.update') }}" method="post" enctype="multipart/form-data">
-                    @csrf   
-                    <div class="row g-3 gx-gs">
-                                    
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInputText1" class="form-label">Name </label>
-                                <div class="form-control-wrap">
-                                    <input type="text" name="name" class="form-control" value="{{ $profileData->name }}"  >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInputText1" class="form-label">Email </label>
-                                <div class="form-control-wrap">
-                                    <input type="email" name="email" class="form-control" value="{{ $profileData->email }}"  >
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInputText1" class="form-label">Phone </label>
-                                <div class="form-control-wrap">
-                                    <input type="text" name="phone" class="form-control" value="{{ $profileData->phone }}"  >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInputText1" class="form-label">Address </label>
-                                <div class="form-control-wrap">
-                                    <input type="text" name="address" class="form-control" value="{{ $profileData->address }}"  >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInputText1" class="form-label">Profile Image </label>
-                                <div class="form-control-wrap">
-                                    <input type="file" name="photo" class="form-control" id="image" >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleFormControlInputText1" class="form-label">  </label>
-                                <div class="form-control-wrap">
-                                    <img id="showImage" src="{{ (!empty($profileData->photo)) ? url('upload/user_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" class="rounded-circle avatar-xl img-thumbnail float-start" style="width: 80px; height:80px;">
-                                </div>
-                            </div>
-                        </div>
-                                
-                        <div class="col-lg-12 col-xl-12">
-                            <button type="submit" class="btn btn-secondary">Save Changes</button> 
-                        </div>
-                            
-                                    
+                <div class="tab-pane fade show active" id="profile-tab-pane">
+                    <div class="d-flex align-items-center justify-content-between border-bottom border-light mt-5 pb-1">
+                        <h5>Personal Details</h5>
+                        <a class="link link-primary fw-normal" href="#">Edit Profile</a>
                     </div>
-                </form> 
+                    <form action="{{ route('user.profile.update') }}" method="post" enctype="multipart/form-data">
+                        @csrf   
+                        <div class="row g-3 gx-gs">
+                                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInputText1" class="form-label">Name </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" name="name" class="form-control" value="{{ $profileData->name }}"  >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInputText1" class="form-label">Email </label>
+                                    <div class="form-control-wrap">
+                                        <input type="email" name="email" class="form-control" value="{{ $profileData->email }}"  >
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInputText1" class="form-label">Phone </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" name="phone" class="form-control" value="{{ $profileData->phone }}"  >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInputText1" class="form-label">Address </label>
+                                    <div class="form-control-wrap">
+                                        <input type="text" name="address" class="form-control" value="{{ $profileData->address }}"  >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInputText1" class="form-label">Profile Image </label>
+                                    <div class="form-control-wrap">
+                                        <input type="file" name="photo" class="form-control" id="image" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlInputText1" class="form-label">  </label>
+                                    <div class="form-control-wrap">
+                                        <img id="showImage" src="{{ (!empty($profileData->photo)) ? url('upload/user_images/'.$profileData->photo) : url('upload/no_image.jpg') }}" class="rounded-circle avatar-xl img-thumbnail float-start" style="width: 80px; height:80px;">
+                                    </div>
+                                </div>
+                            </div>
+                                    
+                            <div class="col-lg-12 col-xl-12">
+                                <button type="submit" class="btn btn-secondary">Save Changes</button> 
+                            </div>
+                                
+                                        
+                        </div>
+                    </form>
+                </div>
 
 
                 @include('client.body.payment_billing')

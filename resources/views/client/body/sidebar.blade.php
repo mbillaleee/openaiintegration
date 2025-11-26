@@ -42,7 +42,7 @@
                                             </a>
                                         </li>
                                         <li class="nk-menu-item">
-                                            <a href="{{ route('admin.change.password') }}" class="nk-menu-link">
+                                            <a href="{{ route('user.change.password') }}" class="nk-menu-link">
                                                 <span class="nk-menu-text">Change Passsword</span>
                                             </a>
                                         </li>
@@ -101,7 +101,45 @@
                 <div class="nk-sidebar-element nk-sidebar-footer">
                     <div class="nk-sidebar-footer-extended pt-3">
                         <div class="border border-light rounded-3">
-                           
+                            @php 
+                                $id = Auth::id();
+                                $profileData = App\Models\User::find($id);
+
+                                // Word limits
+                                $word_limit = [
+                                    'Free' => 1000,
+                                    'Silver' => 3000,
+                                    'Dimond' => 5000,
+                                ];
+
+                                // Safe plan name
+                                $planName = $profileData->plan->name ?? 'Free';
+
+                                // Apply limit
+                                $limit = $word_limit[$planName] ?? 1000;
+
+                                $totalWords = $profileData->current_word_usage ?? $limit;
+                                $wordUsed = $profileData->words_used ?? 0;
+
+                                $wordLeft = max(0, $totalWords - $wordUsed);
+                                $percentageUsed = $totalWords > 0 ? min(100, ($wordUsed / $totalWords) * 100) : 0;
+                            @endphp
+
+
+
+                            <div class="px-3 py-2 bg-white border-bottom border-light rounded-top-3">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                                    <h6 class="lead-text">{{ $planName }} Plan</h6>
+                                    <a class="link link-primary" href="{{ route('user.profile') }}">
+                                        <em class="ni ni-spark-fill icon text-warning"></em>
+                                        <span>Upgrade</span>
+                                    </a>
+                                </div>
+                                <div class="progress progress-md">
+                                    <div class="progress-bar" data-progress="{{ $percentageUsed, 2}}%" style="width: {{ $percentageUsed, 2}}%"></div>
+                                </div>
+                                <h6 class="lead-text mt-2">{{ $wordLeft }} <span class="text-light">words left</span></h6>
+                            </div>
 
                             
                             <a class="d-flex px-3 py-2 bg-primary bg-opacity-10 rounded-bottom-3" href="profile.html">
