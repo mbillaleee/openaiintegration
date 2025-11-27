@@ -19,8 +19,7 @@ class DocumentController extends Controller
     public function adminDocument()
     {
         $id = Auth::user()->id;
-        $documents = GenerateContent::where('user_id', $id)->orderBy('id', 'desc')->get();
-
+        $documents = GenerateContent::orderBy('id', 'desc')->get();
         return view('admin.backend.document.all_document', compact('documents'));
     }
 

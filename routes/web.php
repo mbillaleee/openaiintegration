@@ -8,15 +8,14 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
+use App\Http\Controllers\Backend\Client\CheckoutController;
 use App\Http\Controllers\Backend\Client\UserController;
-
+use App\Http\Controllers\Backend\Client\UserDocumentController;
+use App\Http\Controllers\Backend\Client\UserTemplateController;
 
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
 
 
 // User routes
@@ -27,10 +26,29 @@ Route::prefix('user')->middleware(['auth', IsUser::class])->group(function () {
 
     Route::get('/dashboard', [UserController::class, 'userDashboard'])->name('dashboard');
     Route::get('/logout', [UserController::class, 'userLogout'])->name('user.logout');
-    Route::get('/user/profile', [UserController::class, 'userProfile'])->name('user.profile');
-    Route::post('/user/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
-    Route::get('/user/change/password', [UserController::class, 'userChangePassword'])->name('user.change.password');
-    Route::post('/user/password/update', [UserController::class, 'userPasswordUpdate'])->name('user.password.update');
+    Route::get('/profile', [UserController::class, 'userProfile'])->name('user.profile');
+    Route::post('/profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
+    Route::get('/change/password', [UserController::class, 'userChangePassword'])->name('user.change.password');
+    Route::post('/password/update', [UserController::class, 'userPasswordUpdate'])->name('user.password.update');
+
+
+    Route::get('/template', [UserTemplateController::class, 'userTemplate'])->name('user.template');
+    Route::get('/template/show/{id}', [UserTemplateController::class, 'userTemplateShow'])->name('user.templates.show');
+    Route::post('/content/generate/{id}', [UserTemplateController::class, 'userContentGenerate'])->name('user.content.generate');
+
+    Route::get('/documents', [UserDocumentController::class, 'userDocument'])->name('user.document');
+    Route::get('/edit/document/{id}', [UserDocumentController::class, 'editUserDocument'])->name('edit.user.document');
+    Route::post('/update/document/{id}', [UserDocumentController::class, 'updateUserDocument'])->name('user.update.document');
+    Route::delete('/delete/document/{id}', [UserDocumentController::class, 'deleteUserDocument'])->name('delete.user.document');
+
+
+    Route::controller(CheckoutController::class)->group(function () {
+        Route::get('/check-out', 'userCheckout')->name('user.checkout');
+        Route::post('/process/checkout', 'processCheckout')->name('user.process.checkout');
+        Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
+        Route::get('/invoice/generate/{id}', 'invoiceGenerate')->name('invoice.generate');
+    });
+
 
 
 });

@@ -155,7 +155,8 @@ class TemplateController extends Controller
     {
         //
     }
-   public function adminContentGenerate(Request $request, string $id)
+    
+    public function adminContentGenerate(Request $request, string $id)
     {
         // Fetch the template with its input fields
         $template = Template::with('inputFields')->findOrFail($id);

@@ -57,7 +57,7 @@
                     </div>
                     <div class="mb-2">
                         <div class="pricing-toggle-content monthly active">
-                            <button class="btn {{ $plan->price > 0 ? 'btn-gradient' : 'btn-outline-light'}} w-100">Upgrade Now</button>
+                            <a href="{{ route('user.checkout') }}" class="btn {{ $plan->price > 0 ? 'btn-gradient' : 'btn-outline-light'}} w-100">Upgrade Now</a>
                         </div>
                         <div class="pricing-toggle-content yearly">
                             <button class="btn {{ $plan->price > 0 ? 'btn-gradient' : 'btn-outline-light'}} w-100">Upgrade Now</button>
