@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BillingHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -100,4 +101,26 @@ class AdminController extends Controller
         Auth::logout();
         return redirect()->route('login')->with($notification);
     }
+
+     public function allOrders()
+     {
+        $allData = BillingHistory::orderBy('id', 'desc')->get();
+
+        return view('admin.backend.order.all_orders', compact('allData'));
+     }
+
+     public function updateOrderStatus($id)
+     {
+        $billing = BillingHistory::findOrFail($id);
+        $billing->status = 'Paid';
+        $billing->save();
+
+        $notification = array(
+            'message' => 'Order status updated successfully',
+            'alert-type' =>'error'
+        );
+
+        return redirect()->back()->with($notification);
+
+     }
 }

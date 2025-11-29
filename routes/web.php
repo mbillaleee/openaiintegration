@@ -74,12 +74,17 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     
     Route::resource('plans', PlanController::class);
     Route::resource('templates', TemplateController::class);
+
+
+
     Route::post('/content/generate/{id}', [TemplateController::class, 'adminContentGenerate'])->name('content.generate');
     Route::get('/all/document', [DocumentController::class, 'adminDocument'])->name('admin.document');
     Route::get('/edit/document/{id}', [DocumentController::class, 'editAdminDocument'])->name('edit.admin.document');
     Route::post('/update/document/{id}', [DocumentController::class, 'updateAdminDocument'])->name('admin.update.document');
     Route::delete('/delete/document/{id}', [DocumentController::class, 'deleteAdminDocument'])->name('delete.admin.document');
-
+    
+    Route::get('/order', [AdminController::class, 'allOrders'])->name('admin.order');
+    Route::get('/update/order/status/{id}', [AdminController::class, 'updateOrderStatus'])->name('update.order.status');
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
 });
