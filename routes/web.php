@@ -14,7 +14,7 @@ use App\Http\Controllers\Backend\Client\UserDocumentController;
 use App\Http\Controllers\Backend\Client\UserTemplateController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
 
 
