@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
 use App\Http\Controllers\Backend\Admin\AdminController;
+use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
@@ -85,6 +86,18 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     
     Route::get('/order', [AdminController::class, 'allOrders'])->name('admin.order');
     Route::get('/update/order/status/{id}', [AdminController::class, 'updateOrderStatus'])->name('update.order.status');
+
+    Route::controller(ChatController::class)->group(function () {
+        Route::get('/all/assistants', 'allAssistants')->name('all.assistants');
+        Route::get('/add/assistants', 'addAssistants')->name('add.assistants');
+        Route::post('/chat/assistant/store', 'chatAssistantStore')->name('chat.assistant.store');
+        Route::post('/chat/assistant/update/{id}', 'chatAssistantUpdate')->name('chat.assistant.update');
+
+        Route::get('/chat-assistants/chat/{assistantId}', 'chatAssistantsChat')->name('chatassistants.chat');
+        Route::get('/chat-assistants/new/{assistantId}', 'startNewConversation')->name('chat-assistants.new');
+        Route::get('/chat-assistants/{assistantId}/conversation/{conversationId}', 'selectConversation')->name('chat-assistants.select');
+        Route::post('/chat-assistants/send/{assistantId}', 'chatSendMessage')->name('chat-assistants.send');
+    });
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
 });
