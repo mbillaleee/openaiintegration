@@ -106,6 +106,25 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::post('/home/updaate/slider/{id}', 'updateSlider')->name('updte.slider');
         Route::post('/frontend/update-slider/{id}', 'UpdateFrontendSliders');
         Route::post('/update-slider-image/{id}', 'UpdateSliderImage');
+
+        Route::post('/update-started/{id}', 'UpdateStarted');
+    });
+
+
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/all/headings', 'allHeadings')->name('headings.index');
+        Route::get('/add/headings', 'addHeadings')->name('headings.create');
+        Route::post('/store/headings', 'storeHeadings')->name('store.heading');
+    });
+
+
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/all/question', 'allQuestion')->name('question.index');
+        Route::get('/add/question', 'addQuestion')->name('question.create');
+        Route::post('/store/question', 'storeQuestion')->name('store.question');
+        Route::get('/edit/question/{id}', 'editQuestion')->name('question.edit');
+        Route::post('/update/question/{id}', 'updateQuestion')->name('question.update');
+        Route::get('/delete/question/{id}', 'deleteQuestion')->name('questions.delete');
     });
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');

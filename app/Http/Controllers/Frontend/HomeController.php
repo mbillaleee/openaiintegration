@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Heading;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -126,5 +128,104 @@ class HomeController extends Controller
             'image_url' => asset($save_url),
             'message' => 'Updated successfully'
         ]);
+     }
+
+     public function allHeadings()
+     {
+        $heading = Heading::latest()->get();
+        return view('admin.backend.heading.index', compact('heading'));
+     }
+
+     public function addHeadings()
+     {
+        return view('admin.backend.heading.create');
+     }
+
+     public function storeHeadings(Request $request)
+     {
+        $heading = new Heading();
+        $heading->title = $request->title;
+        $heading->description = $request->description;
+        $heading->addedby_id = Auth::id();
+        $heading->save();
+
+        $notification = array(
+            'message' => 'Heading created successfully',
+            'alert-type' =>'success'
+        );
+
+
+        return redirect()->route('headings.index')->with($notification);
+     }
+
+     public function UpdateStarted(Request $request, $id)
+     {
+        $heading = Heading::findOrFail($id);
+
+        $heading->update($request->only(['title', 'description']));
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Updated successfully'
+        ]);
+     }
+
+     public function allQuestion()
+     {
+        $questions = Question::latest()->get();
+        return view('admin.backend.question.index', compact('questions'));
+     }
+
+     public function addQuestion()
+     {
+        return view('admin.backend.question.create');
+     }
+     public function storeQuestion(Request $request)
+     {
+        $question = new Question();
+        $question->title = $request->title;
+        $question->description = $request->description;
+        $question->addedby_id = Auth::id();
+        $question->save();
+
+        $notification = array(
+            'message' => 'Question created successfully',
+            'alert-type' =>'success'
+        );
+
+        return redirect()->route('question.index')->with($notification);
+     }
+     public function editQuestion($id)
+     {
+       $question = Question::findOrFail($id);
+        return view('admin.backend.question.edit', compact('question'));
+     }
+     public function updateQuestion(Request $request, $id)
+     {
+
+        $question = Question::findOrFail($id);
+        $question->title = $request->title;
+        $question->description = $request->description;
+        $question->addedby_id = Auth::id();
+        $question->save();
+
+        $notification = array(
+            'message' => 'Question updated successfully',
+            'alert-type' =>'success'
+        );
+
+        return redirect()->route('question.index')->with($notification);
+     }
+     public function deleteQuestion($id)
+     {
+        Question::find($id)->delete();
+
+        $notification = array(
+            'message' => 'Question deleted successfully',
+            'alert-type' =>'success'
+        );
+        
+        return redirect()->route('question.index')->with($notification);
      }
 }
