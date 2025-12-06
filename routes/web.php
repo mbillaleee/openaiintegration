@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\Client\CheckoutController;
 use App\Http\Controllers\Backend\Client\UserController;
 use App\Http\Controllers\Backend\Client\UserDocumentController;
 use App\Http\Controllers\Backend\Client\UserTemplateController;
+use App\Http\Controllers\Frontend\HomeController;
 
 Route::get('/', function () {
     return view('frontend.index');
@@ -97,6 +98,14 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/chat-assistants/new/{assistantId}', 'startNewConversation')->name('chat-assistants.new');
         Route::get('/chat-assistants/{assistantId}/conversation/{conversationId}', 'selectConversation')->name('chat-assistants.select');
         Route::post('/chat-assistants/send/{assistantId}', 'chatSendMessage')->name('chat-assistants.send');
+    });
+
+
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/home/slider', 'homeSlider')->name('home.slider');
+        Route::post('/home/updaate/slider/{id}', 'updateSlider')->name('updte.slider');
+        Route::post('/frontend/update-slider/{id}', 'UpdateFrontendSliders');
+        Route::post('/update-slider-image/{id}', 'UpdateSliderImage');
     });
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');
