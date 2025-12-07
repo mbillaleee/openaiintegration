@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\Heading;
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -15,6 +16,10 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 class HomeController extends Controller
 {
+    public function home()
+    {
+        return view('frontend.index');
+    }
     public function homeSlider()
     {
         $slider = Slider::find(1);
@@ -201,8 +206,8 @@ class HomeController extends Controller
        $question = Question::findOrFail($id);
         return view('admin.backend.question.edit', compact('question'));
      }
-     public function updateQuestion(Request $request, $id)
-     {
+    public function updateQuestion(Request $request, $id)
+    {
 
         $question = Question::findOrFail($id);
         $question->title = $request->title;
@@ -216,9 +221,9 @@ class HomeController extends Controller
         );
 
         return redirect()->route('question.index')->with($notification);
-     }
-     public function deleteQuestion($id)
-     {
+    }
+    public function deleteQuestion($id)
+    {
         Question::find($id)->delete();
 
         $notification = array(
@@ -227,5 +232,43 @@ class HomeController extends Controller
         );
         
         return redirect()->route('question.index')->with($notification);
-     }
+    }
+
+    public function homeUsecase()
+    {
+        return view('frontend.page.usecase');
+    }
+
+    public function homeFeature()
+    {
+        return view('frontend.page.feature');
+    }
+
+    public function homePriceing()
+    {
+        return view('frontend.page.priceing');
+    }
+
+    public function homeContact()
+    {
+        return view('frontend.page.contact');
+    }
+
+    public function storeContact(Request $request)
+    {
+        // dd($request->all());
+        $message = new Contact();
+        $message->name = $request->name;
+        $message->email = $request->email;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+
+        $notification = array(
+            'message' => 'Contact message send successfully',
+            'alert-type' =>'success'
+        );
+        
+        return redirect()->back()->with($notification);
+    }
 }

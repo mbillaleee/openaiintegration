@@ -7,6 +7,7 @@ use App\Http\Middleware\IsUser;
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Admin\ChatController;
 use App\Http\Controllers\Backend\Admin\DocumentController;
+use App\Http\Controllers\Backend\Admin\GenerateController;
 use App\Http\Controllers\Backend\Admin\PlanController;
 use App\Http\Controllers\Backend\Admin\TemplateController;
 use App\Http\Controllers\Backend\Client\CheckoutController;
@@ -15,8 +16,18 @@ use App\Http\Controllers\Backend\Client\UserDocumentController;
 use App\Http\Controllers\Backend\Client\UserTemplateController;
 use App\Http\Controllers\Frontend\HomeController;
 
-Route::get('/', function () {
-    return view('frontend.index');
+// Route::get('/', function () {
+//     return view('frontend.index');
+// });
+
+//================= Home Frontend ==================
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/usecase', 'homeUsecase')->name('usecase');
+    Route::get('/feature', 'homeFeature')->name('feature');
+    Route::get('/priceing', 'homePriceing')->name('priceing');
+    Route::get('/contact', 'homeContact')->name('contact');
+    Route::post('/store/contact', 'storeContact')->name('store.contact');
 });
 
 
@@ -49,6 +60,21 @@ Route::prefix('user')->middleware(['auth', IsUser::class])->group(function () {
         Route::post('/process/checkout', 'processCheckout')->name('user.process.checkout');
         Route::get('/payment/success', 'paymentSuccess')->name('payment.success');
         Route::get('/invoice/generate/{id}', 'invoiceGenerate')->name('invoice.generate');
+    });
+
+
+    Route::controller(GenerateController::class)->group(function () {
+        Route::get('/generate/image', 'userGenerateImage')->name('user.generate.image');
+        Route::post('/generate-save-image', 'userGenerateAndSaveImage'); 
+        Route::get('/all/generate/image', 'userAllGenerateImage')->name('user.all.generate.image'); 
+        Route::post('/generate-audio', 'GenerateAndSaveAudio');
+    });
+
+    Route::controller(GenerateController::class)->group(function () {
+        Route::get('/generate/audio', 'userGenerateAudio')->name('user.generate.audio');
+        Route::post('/generate-save-audio', 'userGenerateAndSaveAudio'); 
+        Route::get('/all/generate/audio', 'userAllGenerateAudio')->name('user.all.generate.audio'); 
+        Route::post('/generate-audio', 'userGenerateAndSaveAudio'); 
     });
 
 
@@ -125,6 +151,22 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
         Route::get('/edit/question/{id}', 'editQuestion')->name('question.edit');
         Route::post('/update/question/{id}', 'updateQuestion')->name('question.update');
         Route::get('/delete/question/{id}', 'deleteQuestion')->name('questions.delete');
+    });
+
+
+    Route::controller(GenerateController::class)->group(function () {
+        Route::get('/generate/image', 'generateImage')->name('generate.image');
+        Route::post('/generate-save-image', 'GenerateAndSaveImage'); 
+        Route::get('/all/generate/image', 'allGenerateImage')->name('all.generate.image'); 
+        Route::post('/generate-audio', 'GenerateAndSaveAudio'); 
+        
+    });
+
+    Route::controller(GenerateController::class)->group(function () {
+        Route::get('/generate/audio', 'generateAudio')->name('generate.audio');
+        Route::post('/generate-save-audio', 'GenerateAndSaveAudio'); 
+        Route::get('/all/generate/audio', 'allGenerateAudio')->name('all.generate.audio'); 
+        Route::post('/generate-audio', 'GenerateAndSaveAudio'); 
     });
 
     Route::get('/logout', [AdminController::class, 'adminLogout'])->name('admin.logout');

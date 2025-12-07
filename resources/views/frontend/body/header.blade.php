@@ -24,53 +24,28 @@
                 <nav class="nk-header-menu nk-menu">
                     <ul class="nk-menu-list mx-auto">
                         <li class="nk-menu-item has-dropdown">
-                            <a href="#" class="nk-menu-link nk-menu-toggle">
+                            <a href="{{ route('home') }}" class="nk-menu-link">
                                 <span class="nk-menu-text">Home</span>
                             </a>
-                            <div class="nk-menu-dropdown">
-                                <ul class="nk-menu-sub">
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index.html">Home S1</a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index-s2.html">Home S2</a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index-s3.html">Home S3</a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index-s4.html">Home S4</a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index-s5.html">Home S5</a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index-s6.html">Home S6 <div class="badge bg-primary ms-2 me-n4 px-2 rounded-pill">New</div></a>
-                                    </li>
-                                    <li class="nk-menu-item">
-                                        <a class="nk-menu-link" href="index-s7.html">Home S7 <div class="badge bg-primary ms-2 me-n4 px-2 rounded-pill">New</div></a>
-                                    </li>
-                                </ul>
-                            </div>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="usecase.html" class="nk-menu-link">
+                            <a href="{{ route('usecase') }}" class="nk-menu-link">
                                 <span class="nk-menu-text">Use Cases</span>
                             </a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="features.html" class="nk-menu-link">
+                            <a href="{{ route('feature') }}" class="nk-menu-link">
                                 <span class="nk-menu-text">Features</span>
                             </a>
                         </li>
                         
                         <li class="nk-menu-item">
-                            <a href="pricing.html" class="nk-menu-link">
+                            <a href="{{ route('priceing') }}" class="nk-menu-link">
                                 <span class="nk-menu-text">Pricing</span>
                             </a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="pricing.html" class="nk-menu-link">
+                            <a href="{{ route('contact') }}" class="nk-menu-link">
                                 <span class="nk-menu-text">Contact</span>
                             </a>
                         </li>
@@ -93,7 +68,11 @@
             </div><!-- .nk-header-wrap -->
         </div><!-- .container -->
     </div><!-- .nk-header-main -->
+   
+@if (Route::currentRouteName() == 'home')
     @include('frontend.layout.slider')
+@endif
+
 </header><!-- .nk-header -->
 
 
